@@ -1,0 +1,25 @@
+.draw path { stroke-width: 4.5; animation: scribble3 11s ease-in-out var(--d, 0s) infinite; }
+.hero { color: var(--sky-600); }
+.side { color: var(--sky-400); }
+@keyframes scribble3 {
+  0%      { stroke-dashoffset: 100; opacity: 1; }
+  38%, 72% { stroke-dashoffset: 0; opacity: 1; }
+  90%, 99% { stroke-dashoffset: 0; opacity: 0; }
+  100%    { stroke-dashoffset: 100; opacity: 0; }
+}
+
+.shots { grid-template-columns: 1fr; gap: 34px; margin: 10px 0 34px; }
+.polaroid.wide .pic { aspect-ratio: 16 / 9; }
+.shots .polaroid { margin-top: 0; }
+.shots .polaroid.a { rotate: -1.5deg; }
+.shots .polaroid.b { rotate: 2deg; }
+.shots .polaroid.c { rotate: -1.5deg; }
+.shots .polaroid:hover { rotate: 0deg; scale: 1.03; }
+.sticker {
+  position: absolute; top: -14px; right: -8px; z-index: 1; width: 34px; height: 34px; display: grid; place-items: center;
+  font-style: normal; font-size: 18px; color: var(--sky-400); background: #fff; border-radius: 50%;
+  box-shadow: 0 4px 10px rgba(63,149,221,.3); animation: wiggle 3.6s ease-in-out infinite;
+}
+.polaroid.b .sticker { right: auto; left: -8px; }
+
+.bubble:nth-of-type(5)::before { --em: "♥"; --c: var(--sky-500); }

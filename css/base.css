@@ -1,0 +1,55 @@
+:root {
+  --sky-50: #f4faff;
+  --sky-100: #dff1ff;
+  --sky-200: #bfe3ff;
+  --sky-300: #8ccbf7;
+  --sky-400: #5fb0ee;
+  --sky-500: #3f95dd;
+  --sky-600: #2f7fc4;
+  --sky-700: #25588f;
+  --font: "Fredoka", "Baloo 2", "Nunito", "Trebuchet MS", system-ui, sans-serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; }
+
+body {
+  font-family: var(--font);
+  color: var(--sky-700);
+  background: linear-gradient(180deg, var(--sky-50) 0%, var(--sky-100) 45%, var(--sky-200) 100%);
+  background-attachment: fixed;
+  overflow-x: hidden;
+  transition: opacity .6s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body.leaving { opacity: 0; }
+
+button:focus-visible { outline: 4px solid var(--sky-700); outline-offset: 4px; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition-duration: .01ms !important; }
+  .float, .cloud { display: none; }
+}
+
+#app { transition: opacity .5s ease; }
+
+.back-btn {
+  position: fixed; top: calc(env(safe-area-inset-top, 0px) + 42px); left: 14px; z-index: 10;
+  width: 48px; height: 48px; display: grid; place-items: center; padding: 0 3px 3px 0;
+  font: 600 1.7rem/1 var(--font); color: #fff; text-shadow: 0 2px 0 rgba(37, 88, 143, .35);
+  background: linear-gradient(180deg, #86c9fb, var(--sky-500));
+  border: 3px solid #fff; border-radius: 50%;
+  box-shadow: 0 5px 0 var(--sky-600), 0 10px 18px rgba(47, 127, 196, .35);
+  cursor: pointer; transition: transform .2s ease, box-shadow .2s ease;
+}
+.back-btn::after {
+  content: "♥"; position: absolute; top: -9px; right: -9px; width: 21px; height: 21px; display: grid; place-items: center;
+  font-size: 11px; color: var(--sky-400); text-shadow: none; background: #fff; border-radius: 50%;
+  box-shadow: 0 2px 6px rgba(63, 149, 221, .35); animation: back-wiggle 3.6s ease-in-out infinite;
+}
+.back-btn span { display: block; animation: back-nudge 2.2s ease-in-out infinite; }
+.back-btn:hover { transform: translateY(-2px) scale(1.06); }
+.back-btn:active { transform: translateY(4px); box-shadow: 0 1px 0 var(--sky-600), 0 4px 8px rgba(47, 127, 196, .3); }
+@keyframes back-nudge { 50% { translate: -3px 0; } }
+@keyframes back-wiggle { 0%, 100% { rotate: -10deg; } 50% { rotate: 10deg; scale: 1.12; } }

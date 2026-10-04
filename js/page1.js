@@ -20,7 +20,7 @@ export function mount() {
   }
 
   document.getElementById("startBtn").addEventListener("click", () => {
-    BdayMusic.start(); // dari klik langsung, jadi tidak diblokir browser
+    BdayMusic.start();
     location.hash = "#/2";
   }, { once: true });
 

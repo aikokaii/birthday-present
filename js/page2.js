@@ -50,7 +50,7 @@ export function mount(root, heart = HEART) {
   }, { signal: ac.signal });
 
   addEventListener("pointerdown", e => {
-    if (e.target.closest("#gift")) return;
+    if (e.target.closest("#gift, .cake, .music-ctl, .back-btn, .lightbox, .car-btn")) return;
     const h = add(document.body, "pop", `left:${e.clientX - 10}px;top:${e.clientY - 12}px;--x:${rand(-24, 24)}px`, "♥");
     setTimeout(() => h.remove(), 1400);
   }, { signal: ac.signal });

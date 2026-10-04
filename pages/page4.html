@@ -1,25 +1,85 @@
 <div class="deco" id="deco" aria-hidden="true"></div>
 <div class="bunting" id="bunting" aria-hidden="true"></div>
-<div class="draw side" style="--d:3s;left:2%;top:36%" aria-hidden="true"></div>
-<div class="draw side" style="--d:7s;right:2%;top:70%" aria-hidden="true"></div>
+<div class="draw side" style="--d:2s;left:2%;top:40%" aria-hidden="true"></div>
+<div class="draw side" style="--d:6s;right:2%;top:74%" aria-hidden="true"></div>
 
 <main class="wrap">
   <div class="draw hero" aria-hidden="true"></div>
-  <h1 class="headline">Jadi apa hayoo??</h1>
+  <h1 class="headline"><small id="cakeSmall">sebelum lanjut...</small><span id="cakeMain">Make a wish dulu dong!!</span></h1>
 
-  <p class="bubble reveal">In the end di hari ini dan seterusnya aku berharap dan berdo'a kamu akan selalu diberikan hasil yang terbaik oleh Allah SAW serta juga segala urusan apapun itu selalu dilancarkan dan juga dijauhkan dari musibah apapun itu.</p>
-  <p class="bubble reveal">Maaf aku cuma bisa ngasih ini. Maaf juga aku tidak bisa datang kesana untuk merayakan.</p>
-  <p class="bubble reveal">Tapi sepertinya disana sudah pasti dirayakan bersama teman-teman kamu ya, baguslah hehe.</p>
+  <div class="cake" id="cake">
+    <svg viewBox="0 0 300 280" role="img" aria-label="Kue ulang tahun dengan tiga lilin">
+      <defs>
+        <pattern id="stp" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(40)">
+          <rect width="10" height="10" fill="#8ccbf7"/><rect width="5" height="10" fill="#fff"/>
+        </pattern>
+        <linearGradient id="flm" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#ffb347"/><stop offset="1" stop-color="#fff3b0"/></linearGradient>
+        <symbol id="hrt" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></symbol>
+      </defs>
 
-  <div class="solo reveal">
-    <figure class="polaroid a"><i class="sticker">✿</i><div class="pic"><span class="ph">foto6</span><img src="/assets/foto6.webp" alt="Foto Sahara" onerror="this.remove()"></div></figure>
+      <!-- piring -->
+      <ellipse cx="150" cy="256" rx="134" ry="18" fill="#bfe3ff"/>
+      <ellipse cx="150" cy="250" rx="134" ry="18" fill="#fff"/>
+      <ellipse cx="150" cy="250" rx="104" ry="11" fill="#dff1ff"/>
+
+      <!-- tingkat bawah -->
+      <rect x="42" y="170" width="216" height="80" rx="18" fill="#5fb0ee"/>
+      <g fill="#fff">
+        <rect x="42" y="166" width="216" height="26" rx="13"/>
+        <rect x="62" y="180" width="18" height="36" rx="9"/><rect x="112" y="180" width="16" height="26" rx="8"/>
+        <rect x="170" y="180" width="18" height="42" rx="9"/><rect x="222" y="180" width="16" height="30" rx="8"/>
+        <use href="#hrt" x="86" y="212" width="20" height="20" opacity=".92"/>
+        <use href="#hrt" x="140" y="224" width="18" height="18" opacity=".92"/>
+        <use href="#hrt" x="196" y="214" width="20" height="20" opacity=".92"/>
+        <circle cx="64" cy="232" r="3"/><circle cx="122" cy="226" r="3"/><circle cx="238" cy="232" r="3"/><circle cx="176" cy="238" r="3"/>
+      </g>
+
+      <rect x="84" y="114" width="132" height="62" rx="16" fill="#fff" stroke="#bfe3ff" stroke-width="3"/>
+      <g fill="#8ccbf7">
+        <rect x="84" y="112" width="132" height="24" rx="12"/>
+        <rect x="98" y="126" width="14" height="26" rx="7"/><rect x="140" y="126" width="16" height="36" rx="8"/><rect x="186" y="126" width="14" height="22" rx="7"/>
+      </g>
+      <g fill="#5fb0ee">
+        <use href="#hrt" x="108" y="152" width="16" height="16"/><use href="#hrt" x="170" y="150" width="16" height="16"/>
+        <circle cx="130" cy="166" r="2.6"/><circle cx="206" cy="160" r="2.6"/><circle cx="96" cy="164" r="2.6"/>
+      </g>
+
+      <g>
+        <rect x="105" y="76" width="10" height="38" rx="3" fill="url(#stp)"/><rect x="109.2" y="68" width="1.6" height="8" fill="#3b7fbd"/>
+        <rect x="145" y="76" width="10" height="38" rx="3" fill="url(#stp)"/><rect x="149.2" y="68" width="1.6" height="8" fill="#3b7fbd"/>
+        <rect x="185" y="76" width="10" height="38" rx="3" fill="url(#stp)"/><rect x="189.2" y="68" width="1.6" height="8" fill="#3b7fbd"/>
+      </g>
+
+      <g class="flame" transform="translate(110 68)" role="button" aria-label="Tiup lilin 1">
+        <circle class="glow" r="18" cy="-14" fill="#fff6c9" opacity=".5"/>
+        <g class="f"><path d="M0 -28C8 -16 9 -8 0 -1C-9 -8 -8 -16 0 -28Z" fill="url(#flm)"/><path d="M0 -15C3 -10 3 -6 0 -3C-3 -6 -3 -10 0 -15Z" fill="#fff" opacity=".85"/></g>
+        <path class="smoke" pathLength="60" d="M0 -6C-8 -14 8 -20 0 -30S-6 -42 2 -48" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"/>
+        <rect class="flame-hit" x="-19" y="-50" width="38" height="66" fill="transparent"/>
+      </g>
+      <g class="flame" transform="translate(150 68)" role="button" aria-label="Tiup lilin 2">
+        <circle class="glow" r="18" cy="-14" fill="#fff6c9" opacity=".5"/>
+        <g class="f"><path d="M0 -28C8 -16 9 -8 0 -1C-9 -8 -8 -16 0 -28Z" fill="url(#flm)"/><path d="M0 -15C3 -10 3 -6 0 -3C-3 -6 -3 -10 0 -15Z" fill="#fff" opacity=".85"/></g>
+        <path class="smoke" pathLength="60" d="M0 -6C-8 -14 8 -20 0 -30S-6 -42 2 -48" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"/>
+        <rect class="flame-hit" x="-19" y="-50" width="38" height="66" fill="transparent"/>
+      </g>
+      <g class="flame" transform="translate(190 68)" role="button" aria-label="Tiup lilin 3">
+        <circle class="glow" r="18" cy="-14" fill="#fff6c9" opacity=".5"/>
+        <g class="f"><path d="M0 -28C8 -16 9 -8 0 -1C-9 -8 -8 -16 0 -28Z" fill="url(#flm)"/><path d="M0 -15C3 -10 3 -6 0 -3C-3 -6 -3 -10 0 -15Z" fill="#fff" opacity=".85"/></g>
+        <path class="smoke" pathLength="60" d="M0 -6C-8 -14 8 -20 0 -30S-6 -42 2 -48" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"/>
+        <rect class="flame-hit" x="-19" y="-50" width="38" height="66" fill="transparent"/>
+      </g>
+    </svg>
   </div>
 
-  <section class="finale reveal" id="finale">
-    <small>intinya apa??</small>
-    <div class="big">HAPPY BIRTHDAY SAHARA!!💙</div>
-  </section>
+  <p class="hint" id="cakeHint">tap atau geser di atas lilinnya buat ditiup ya</p>
+  <div class="cake-actions">
+    <button class="blow" id="blow" type="button">Tiup lilinnya!</button>
+    <button class="relight hide" id="relight" type="button">nyalain lagi</button>
+  </div>
 
-  <blockquote class="quote reveal">“I could probably find a hundred ways to describe what’s beautiful about you, and still miss the point.”<footer>— Kai</footer></blockquote>
+  <div class="gift-wrap reveal locked">
+    <button class="gift" id="gift" type="button" aria-label="Lanjut ke page berikutnya" data-next="#/5"><i class="lid"></i><i class="box"></i></button>
+    <p class="tip" id="tip">Beneran sisa satu lagi hehe</p>
+  </div>
 </main>
 <div class="bunting foot" id="buntingFoot" aria-hidden="true"></div>

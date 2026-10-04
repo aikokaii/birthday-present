@@ -15,7 +15,7 @@
 .spark { position: absolute; font-style: normal; animation: twinkle 3.6s ease-in-out var(--delay) infinite; }
 @keyframes twinkle { 0%, 100% { opacity: .15; scale: .6; } 50% { opacity: .9; scale: 1.15; } }
 
-.bunting { position: absolute; top: 0; left: 0; right: 0; display: flex; z-index: 2; pointer-events: none; }
+.bunting { position: absolute; top: 0; left: 0; right: 0; display: flex; overflow-x: clip; z-index: 2; pointer-events: none; }
 .bunting::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: #fff; }
 .bunting i {
   flex: none; border-left: 19px solid transparent; border-right: 19px solid transparent; border-top: 34px solid;

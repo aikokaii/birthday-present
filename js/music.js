@@ -18,10 +18,37 @@ function fade(to, ms) {
   }, 30);
 }
 
+let stopTimer;
+
 function start() {
-  if (!audio.paused) return;
+  clearTimeout(stopTimer);
+  if (!audio.paused) { fade(VOLUME, 300); return; }
   audio.volume = 0;
   audio.play().then(() => fade(VOLUME, 700)).catch(() => {});
 }
 
-window.BdayMusic = { start, stop: () => audio.pause(), fade };
+function stop() {
+  fade(0, 500);
+  clearTimeout(stopTimer);
+  stopTimer = setTimeout(() => { audio.pause(); audio.currentTime = 0; }, 550);
+}
+
+function toggle() {
+  clearTimeout(stopTimer);
+  if (audio.paused) {
+    audio.volume = 0;
+    audio.play().then(() => fade(VOLUME, 500)).catch(() => {});
+  } else {
+    audio.pause();
+  }
+}
+
+function toggleMute() { audio.muted = !audio.muted; }
+
+const ready = new Promise(res => {
+  audio.addEventListener("canplaythrough", res, { once: true });
+  audio.addEventListener("error", res, { once: true });
+  setTimeout(res, 3500);
+});
+
+window.BdayMusic = { start, stop, fade, toggle, toggleMute, ready, audio };

@@ -4,8 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Hari ini hari apa ya? 💙</title>
-  <link rel="icon" type="image/png" href="/favicon.webp">
-  <link rel="apple-touch-icon" href="/favicon.webp">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="apple-touch-icon" href="/favicon.png">
   <meta name="theme-color" content="#bfe3ff">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,6 +15,11 @@
 </head>
 <body>
   <div id="app"></div>
+  <div id="loader" role="status" aria-live="polite">
+    <div class="ld-heart"><svg viewBox="0 0 200 180" aria-hidden="true"><path pathLength="100" d="M100 165C40 120 10 85 10 55C10 28 32 12 55 12C75 12 92 24 100 40C108 24 125 12 145 12C168 12 190 28 190 55C190 85 160 120 100 165"/></svg></div>
+    <p class="ld-text">sebentar ya, lagi disiapin... <span id="ldPct">0%</span></p>
+    <div class="ld-bar"><i id="ldBar"></i></div>
+  </div>
   <script type="module" src="js/main.js"></script>
 </body>
 </html>

@@ -53,3 +53,87 @@ button:focus-visible { outline: 4px solid var(--sky-700); outline-offset: 4px; }
 .back-btn:active { transform: translateY(4px); box-shadow: 0 1px 0 var(--sky-600), 0 4px 8px rgba(47, 127, 196, .3); }
 @keyframes back-nudge { 50% { translate: -3px 0; } }
 @keyframes back-wiggle { 0%, 100% { rotate: -10deg; } 50% { rotate: 10deg; scale: 1.12; } }
+
+.lyric {
+  position: fixed; left: 50%; bottom: calc(env(safe-area-inset-bottom, 0px) + 18px); z-index: 9;
+  translate: -50% 10px; width: max-content; max-width: min(88vw, 460px); padding: .55em 1.2em;
+  display: flex; align-items: center; gap: .55em;
+  font: 500 clamp(.9rem, 3.6vw, 1.05rem)/1.4 var(--font); color: var(--sky-700); text-align: center;
+  background: rgba(255, 255, 255, .9); border: 3px solid #fff; border-radius: 26px;
+  box-shadow: 0 8px 20px rgba(63, 149, 221, .28);
+  opacity: 0; pointer-events: none; transition: opacity .4s ease, translate .4s ease;
+}
+.lyric.show { opacity: 1; translate: -50% 0; }
+.lyric::before { content: "♥"; color: var(--sky-400); font-size: 1.2em; animation: back-wiggle 3.6s ease-in-out infinite; }
+
+#loader {
+  position: fixed; inset: 0; z-index: 100; display: grid; place-content: center; justify-items: center; gap: 20px; padding: 24px; text-align: center;
+  background: linear-gradient(180deg, var(--sky-50), var(--sky-100) 50%, var(--sky-200));
+  transition: opacity .7s ease, visibility .7s;
+}
+#loader.done { opacity: 0; visibility: hidden; pointer-events: none; }
+.ld-heart { width: 120px; color: var(--sky-500); animation: ld-bob 3s ease-in-out infinite; }
+.ld-heart svg { display: block; width: 100%; overflow: visible; }
+.ld-heart path {
+  fill: none; stroke: currentColor; stroke-width: 6; stroke-linecap: round; stroke-linejoin: round;
+  stroke-dasharray: 100 100; stroke-dashoffset: 100; filter: drop-shadow(0 4px 6px rgba(63, 149, 221, .35));
+  animation: ld-draw 2.6s ease-in-out infinite;
+}
+@keyframes ld-draw { 0% { stroke-dashoffset: 100; } 55%, 80% { stroke-dashoffset: 0; } 100% { stroke-dashoffset: -100; } }
+@keyframes ld-bob { 50% { translate: 0 -8px; } }
+.ld-text { font-size: 1.15rem; font-weight: 500; color: var(--sky-700); }
+.ld-bar { width: min(62vw, 250px); height: 14px; padding: 2px; background: #fff; border-radius: 999px; box-shadow: 0 4px 10px rgba(63, 149, 221, .25); }
+.ld-bar i { display: block; height: 100%; width: var(--p, 0%); min-width: 10px; background: linear-gradient(90deg, #86c9fb, var(--sky-500)); border-radius: inherit; transition: width .4s ease; }
+@media (prefers-reduced-motion: reduce) { .ld-heart path { stroke-dashoffset: 0; } }
+
+.wipe {
+  position: fixed; inset: 0; z-index: 50; visibility: hidden; pointer-events: none; overflow: visible; will-change: transform;
+  transform: translateY(calc(100% + 70px));
+  background: linear-gradient(180deg, #fff 0%, var(--sky-100) 55%, var(--sky-300) 100%);
+}
+.wipe .edge { position: absolute; left: 0; right: 0; height: 60px; }
+.wipe .edge.top { top: -59px; background: radial-gradient(circle at 30px 60px, #fff 0 29px, transparent 30px) 0 0 / 60px 60px repeat-x; }
+.wipe .edge.bot { bottom: -59px; background: radial-gradient(circle at 30px 0, var(--sky-300) 0 29px, transparent 30px) 0 0 / 60px 60px repeat-x; }
+.wipe .wh { position: absolute; font-style: normal; animation: wh-float 2.4s ease-in-out infinite alternate; }
+@keyframes wh-float { to { translate: 0 -14px; rotate: 10deg; } }
+.wipe-heart {
+  position: absolute; left: 50%; top: 50%; translate: -50% -50%; font-size: 84px; line-height: 1; color: #fff;
+  text-shadow: 0 6px 18px rgba(63, 149, 221, .55); animation: wh-pulse 1.2s ease-in-out infinite;
+}
+@keyframes wh-pulse { 50% { scale: 1.18; } }
+
+.music-ctl { position: fixed; top: calc(env(safe-area-inset-top, 0px) + 42px); right: 14px; z-index: 10; display: flex; gap: 8px; }
+body[data-page="1"] .music-ctl { display: none; }
+.mbtn {
+  width: 44px; height: 44px; display: grid; place-items: center; padding: 0; color: #fff;
+  background: linear-gradient(180deg, #86c9fb, var(--sky-500)); border: 3px solid #fff; border-radius: 50%;
+  box-shadow: 0 4px 0 var(--sky-600), 0 8px 14px rgba(47, 127, 196, .3); cursor: pointer;
+  transition: transform .2s ease, box-shadow .2s ease, background .2s ease, color .2s ease;
+}
+.mbtn svg { width: 20px; height: 20px; fill: currentColor; }
+.mbtn:hover { transform: translateY(-2px); }
+.mbtn:active { transform: translateY(3px); box-shadow: 0 1px 0 var(--sky-600), 0 3px 6px rgba(47, 127, 196, .3); }
+.mbtn.off { color: var(--sky-400); background: #fff; box-shadow: 0 4px 0 var(--sky-200), 0 8px 14px rgba(47, 127, 196, .2); }
+
+.lightbox {
+  position: fixed; inset: 0; z-index: 40; display: grid; place-items: center; padding: 20px; touch-action: pan-y;
+  background: rgba(37, 88, 143, .62); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+  opacity: 0; transition: opacity .25s ease;
+}
+.lightbox.in { opacity: 1; }
+.lb-frame {
+  position: relative; margin: 0; padding: 10px 10px 32px; background: #fff; border-radius: 16px; box-shadow: 0 20px 50px rgba(0, 0, 0, .3);
+  scale: .92; transition: scale .3s cubic-bezier(.3, 1.5, .5, 1);
+}
+.lightbox.in .lb-frame { scale: 1; }
+.lb-frame img { display: block; max-width: min(88vw, 760px); max-height: 72vh; border-radius: 8px; object-fit: contain; }
+.lb-frame::after { content: "♥"; position: absolute; right: 16px; bottom: 5px; font-size: 18px; color: var(--sky-400); }
+.lb-close, .lb-nav {
+  position: absolute; z-index: 2; width: 44px; height: 44px; display: grid; place-items: center; padding: 0 0 3px;
+  font: 600 1.5rem/1 var(--font); color: #fff; background: linear-gradient(180deg, #86c9fb, var(--sky-500));
+  border: 3px solid #fff; border-radius: 50%; box-shadow: 0 4px 0 var(--sky-600), 0 8px 14px rgba(47, 127, 196, .3); cursor: pointer;
+}
+.lb-close { top: calc(env(safe-area-inset-top, 0px) + 16px); right: 16px; padding: 0; font-size: 1.2rem; }
+.lb-nav { top: 50%; translate: 0 -50%; }
+.lb-nav.prev { left: 12px; } .lb-nav.next { right: 12px; }
+.lb-count { position: absolute; bottom: calc(env(safe-area-inset-bottom, 0px) + 18px); left: 50%; translate: -50% 0; color: #fff; font-weight: 500; text-shadow: 0 2px 6px rgba(0, 0, 0, .35); }

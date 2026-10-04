@@ -8,13 +8,37 @@
   100%    { stroke-dashoffset: 100; opacity: 0; }
 }
 
-.shots { grid-template-columns: 1fr; gap: 34px; margin: 10px 0 34px; }
+.carousel { margin: 0 -8px 26px; }
+.track { position: relative; }
+.shots { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; overscroll-behavior-x: contain; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+.shots::-webkit-scrollbar { display: none; }
+.slide { flex: 0 0 100%; scroll-snap-align: center; padding: 28px 20px 34px; }
 .polaroid.wide .pic { aspect-ratio: 16 / 9; }
-.shots .polaroid { margin-top: 0; }
+.slide .polaroid { margin: 0; }
 .shots .polaroid.a { rotate: -1.5deg; }
 .shots .polaroid.b { rotate: 2deg; }
 .shots .polaroid.c { rotate: -1.5deg; }
 .shots .polaroid:hover { rotate: 0deg; scale: 1.03; }
+.polaroid:has(img) { cursor: zoom-in; }
+
+.car-btn {
+  position: absolute; top: calc(50% - 20px); z-index: 2; width: 40px; height: 40px; display: grid; place-items: center; padding: 0 0 3px;
+  font: 600 1.6rem/1 var(--font); color: #fff; background: linear-gradient(180deg, #86c9fb, var(--sky-500));
+  border: 3px solid #fff; border-radius: 50%; box-shadow: 0 4px 0 var(--sky-600), 0 8px 14px rgba(47, 127, 196, .3);
+  cursor: pointer; transition: transform .2s ease, opacity .2s ease;
+}
+.car-btn.prev { left: -6px; } .car-btn.next { right: -6px; }
+.car-btn:hover:not(:disabled) { transform: scale(1.08); }
+.car-btn:disabled { opacity: .35; cursor: default; }
+@media (hover: none) { .car-btn { display: none; } }
+
+.dots { display: flex; justify-content: center; gap: 8px; margin-top: -8px; }
+.dots i { width: 9px; height: 9px; border-radius: 6px; background: var(--sky-200); transition: width .3s ease, background .3s ease; }
+.dots i.on { width: 24px; background: var(--sky-500); }
+.swipe-hint { margin-top: 12px; font-size: .95rem; color: #3b7fbd; text-align: center; transition: opacity .5s ease; }
+.swipe-hint.gone { opacity: 0; }
+.swipe-hint .mouse { display: none; }
+@media (hover: hover) { .swipe-hint .touch { display: none; } .swipe-hint .mouse { display: inline; } }
 .sticker {
   position: absolute; top: -14px; right: -8px; z-index: 1; width: 34px; height: 34px; display: grid; place-items: center;
   font-style: normal; font-size: 18px; color: var(--sky-400); background: #fff; border-radius: 50%;

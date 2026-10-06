@@ -1,0 +1,46 @@
+/* Page 6 — Penutup (dekorasi dasar ada di page2.css) */
+
+/* dua hati satu goresan: tergambar, ditahan, lalu ditarik mundur ke awal */
+.draw path { stroke-width: 4.5; stroke-dasharray: 0 100; stroke-dashoffset: 0; animation: scribble4 12s ease-in-out var(--d, 0s) infinite; }
+.hero { width: min(60vw, 230px); margin: 60px auto 26px; color: var(--sky-600); }
+.side { color: var(--sky-400); }
+@keyframes scribble4 {
+  0%       { stroke-dasharray: 0 100; opacity: 1; }
+  42%, 70% { stroke-dasharray: 100 100; opacity: 1; }
+  98%      { stroke-dasharray: 0 100; opacity: 1; }
+  100%     { stroke-dasharray: 0 100; opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) { .draw path { stroke-dasharray: 100 100; } }
+
+/* foto 4:3 */
+.solo { width: min(86%, 400px); margin: 38px auto; }
+.solo .pic { aspect-ratio: 4 / 3; }
+.sticker {
+  position: absolute; top: -14px; right: -8px; z-index: 1; width: 34px; height: 34px; display: grid; place-items: center;
+  font-style: normal; font-size: 18px; color: var(--sky-400); background: #fff; border-radius: 50%;
+  box-shadow: 0 4px 10px rgba(63,149,221,.3); animation: wiggle 3.6s ease-in-out infinite;
+}
+
+/* HAPPY BIRTHDAY: huruf bergelombang, tap untuk confetti */
+.finale { margin: 44px 0 12px; cursor: pointer; }
+.finale small { display: block; margin-bottom: 6px; font-size: clamp(1.1rem, 4.6vw, 1.4rem); font-weight: 500; color: var(--sky-500); }
+.finale .big { font-size: clamp(2rem, 10vw, 3.2rem); font-weight: 600; line-height: 1.2; color: var(--sky-600); text-shadow: 0 3px 0 #fff, 0 8px 16px rgba(63,149,221,.3); }
+.finale .w { display: inline-block; white-space: nowrap; }
+.finale .w span { display: inline-block; animation: wave 2.6s ease-in-out calc(var(--i) * .09s) infinite; }
+@keyframes wave { 50% { translate: 0 -7px; } }
+
+/* kutipan */
+.quote {
+  position: relative; margin: 40px 0 20px; padding: 28px 24px 20px; font-size: clamp(1.05rem, 4.4vw, 1.25rem); line-height: 1.55;
+  background: linear-gradient(160deg, #fff, var(--sky-100)); border: 3px solid #fff; border-radius: 28px;
+  box-shadow: 0 10px 24px rgba(63,149,221,.2); outline: 2px dashed var(--sky-300); outline-offset: -9px;
+}
+.quote::before {
+  content: "“"; position: absolute; top: -20px; left: 50%; translate: -50% 0; width: 40px; height: 40px; display: grid; place-items: center;
+  font-size: 34px; line-height: 1; padding-top: 10px; color: var(--sky-500); background: #fff; border-radius: 50%;
+  box-shadow: 0 4px 10px rgba(63,149,221,.3); animation: wiggle 3.6s ease-in-out infinite;
+}
+.quote footer { margin-top: 10px; text-align: right; font-weight: 600; color: var(--sky-500); }
+
+/* judul di atas */
+.headline { margin-bottom: 32px; }

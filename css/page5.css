@@ -1,39 +1,79 @@
-.draw path { stroke-width: 4.5; stroke-dasharray: 0 100; stroke-dashoffset: 0; animation: scribble4 12s ease-in-out var(--d, 0s) infinite; }
-.hero { width: min(60vw, 230px); margin: 60px auto 26px; color: var(--sky-600); }
+/* Page 5 — Toples kata-kata (dekorasi dasar ada di page2.css) */
+
+/* hati satu goresan versi page 5: tergambar, berdetak dua kali, lalu memudar */
+.draw path {
+  stroke-width: 4.5; transform-box: fill-box; transform-origin: 50% 55%;
+  animation: scribble5 10s ease-in-out var(--d, 0s) infinite;
+}
+.hero { width: min(40vw, 130px); margin: 56px auto 4px; color: var(--sky-600); }
 .side { color: var(--sky-400); }
-@keyframes scribble4 {
-  0%       { stroke-dasharray: 0 100; opacity: 1; }
-  42%, 70% { stroke-dasharray: 100 100; opacity: 1; }
-  98%      { stroke-dasharray: 0 100; opacity: 1; }
-  100%     { stroke-dasharray: 0 100; opacity: 0; }
-}
-@media (prefers-reduced-motion: reduce) { .draw path { stroke-dasharray: 100 100; } }
-
-.solo { width: min(86%, 400px); margin: 38px auto; }
-.solo .pic { aspect-ratio: 4 / 3; }
-.sticker {
-  position: absolute; top: -14px; right: -8px; z-index: 1; width: 34px; height: 34px; display: grid; place-items: center;
-  font-style: normal; font-size: 18px; color: var(--sky-400); background: #fff; border-radius: 50%;
-  box-shadow: 0 4px 10px rgba(63,149,221,.3); animation: wiggle 3.6s ease-in-out infinite;
+@keyframes scribble5 {
+  0%       { stroke-dashoffset: 100; opacity: 1; transform: scale(1); }
+  38%      { stroke-dashoffset: 0; opacity: 1; transform: scale(1); }
+  46%, 62% { transform: scale(1.1); }
+  54%, 70% { transform: scale(1); }
+  70%      { stroke-dashoffset: 0; opacity: 1; }
+  88%      { stroke-dashoffset: 0; opacity: 0; }
+  100%     { stroke-dashoffset: 100; opacity: 0; transform: scale(1); }
 }
 
-.finale { margin: 44px 0 12px; cursor: pointer; }
-.finale small { display: block; margin-bottom: 6px; font-size: clamp(1.1rem, 4.6vw, 1.4rem); font-weight: 500; color: var(--sky-500); }
-.finale .big { font-size: clamp(2rem, 10vw, 3.2rem); font-weight: 600; line-height: 1.2; color: var(--sky-600); text-shadow: 0 3px 0 #fff, 0 8px 16px rgba(63,149,221,.3); }
-.finale .w { display: inline-block; white-space: nowrap; }
-.finale .w span { display: inline-block; animation: wave 2.6s ease-in-out calc(var(--i) * .09s) infinite; }
-@keyframes wave { 50% { translate: 0 -7px; } }
+/* kutipan berjalan di bawah layar tidak perlu di sini: semua kalimatnya sudah tampil */
+body[data-page="5"] .lyric { display: none !important; }
 
-.quote {
-  position: relative; margin: 40px 0 20px; padding: 28px 24px 20px; font-size: clamp(1.05rem, 4.4vw, 1.25rem); line-height: 1.55;
-  background: linear-gradient(160deg, #fff, var(--sky-100)); border: 3px solid #fff; border-radius: 28px;
-  box-shadow: 0 10px 24px rgba(63,149,221,.2); outline: 2px dashed var(--sky-300); outline-offset: -9px;
-}
-.quote::before {
-  content: "“"; position: absolute; top: -20px; left: 50%; translate: -50% 0; width: 40px; height: 40px; display: grid; place-items: center;
-  font-size: 34px; line-height: 1; padding-top: 10px; color: var(--sky-500); background: #fff; border-radius: 50%;
-  box-shadow: 0 4px 10px rgba(63,149,221,.3); animation: wiggle 3.6s ease-in-out infinite;
-}
-.quote footer { margin-top: 10px; text-align: right; font-weight: 600; color: var(--sky-500); }
+.wrap { width: min(92vw, 820px); }
+.headline { margin-bottom: 8px; }
 
-.headline { margin-bottom: 32px; }
+/* toples */
+.jar-wrap { margin: 26px auto 0; text-align: center; }
+.jar {
+  display: block; width: min(60vw, 240px); margin: 0 auto; padding: 0; border: 0; background: none; cursor: pointer;
+  filter: drop-shadow(0 14px 16px rgba(63, 149, 221, .28)); animation: jar-float 5s ease-in-out infinite;
+  -webkit-tap-highlight-color: transparent;
+}
+.jar svg { display: block; width: 100%; overflow: visible; transform-origin: 50% 92%; }
+@keyframes jar-float { 50% { translate: 0 -6px; } }
+.jlabel { font: 600 15px var(--font); fill: var(--sky-700); }
+.jar .bit { transform-box: fill-box; transform-origin: 50% 50%; animation: bit-bob 3.2s ease-in-out calc(var(--k) * -.45s) infinite alternate; }
+@keyframes bit-bob { to { transform: translateY(-5px) rotate(10deg); } }
+.jar .jlid { transform-box: fill-box; transform-origin: 15% 100%; transition: transform .55s cubic-bezier(.3, 1.5, .5, 1); }
+.jar.open .jlid { transform: translate(-6px, -20px) rotate(-12deg); }
+.jar.shake svg { animation: jar-shake .6s ease; }
+@keyframes jar-shake { 20% { transform: rotate(-6deg); } 40% { transform: rotate(5deg); } 60% { transform: rotate(-3deg); } 80% { transform: rotate(2deg); } }
+.hint { margin: 10px 0 0; font-size: clamp(.9rem, 3.6vw, 1rem); color: #3b7fbd; }
+
+/* kartu kata-kata: semuanya muncul sekaligus dari toples */
+.notes { position: relative; z-index: 1; display: grid; grid-template-columns: 1fr; gap: 24px; margin: 34px 0 10px; text-align: left; }
+@media (min-width: 720px) { .notes { grid-template-columns: 1fr 1fr; gap: 28px 26px; align-items: start; } }
+
+.note {
+  position: relative; padding: 22px 20px 18px; background: #fff; border: 3px solid #fff; border-radius: 20px;
+  box-shadow: 0 10px 22px rgba(63, 149, 221, .22); outline: 2px dashed var(--sky-200); outline-offset: -9px;
+  rotate: var(--rot, 0deg); opacity: 0; transform: translateY(-190px) scale(.25);
+  transition:
+    opacity .45s ease calc(var(--i) * 45ms),
+    transform .7s cubic-bezier(.2, 1.25, .4, 1) calc(var(--i) * 45ms),
+    rotate .3s ease 0s;
+}
+.note.shown { opacity: 1; transform: none; }
+.notes.reset .note { transition: none; }
+.note:hover { rotate: 0deg; }
+.note:nth-child(4n+1) { --rot: -1.2deg; }
+.note:nth-child(4n+2) { --rot: 1deg; }
+.note:nth-child(4n+3) { --rot: -.6deg; }
+.note:nth-child(4n)   { --rot: 1.4deg; }
+.note.t1 { background: #eef8ff; }
+.note.t2 { background: #e2f2ff; }
+.note p { margin: 0; font-size: clamp(1rem, 4vw, 1.12rem); line-height: 1.55; color: var(--sky-700); }
+.note::before {
+  content: ""; position: absolute; top: -11px; left: 50%; width: 58px; height: 18px; translate: -50% 0; rotate: -3deg;
+  background: repeating-linear-gradient(45deg, rgba(134, 201, 251, .75) 0 8px, rgba(255, 255, 255, .75) 8px 16px); border-radius: 3px;
+}
+.note.t1::before { display: none; }
+.badge {
+  position: absolute; top: -14px; left: -8px; z-index: 1; width: 32px; height: 32px; display: grid; place-items: center;
+  font-style: normal; font-size: 17px; color: var(--sky-400); background: #fff; border-radius: 50%;
+  box-shadow: 0 4px 10px rgba(63, 149, 221, .3); animation: wiggle 3.6s ease-in-out infinite;
+}
+.note:nth-child(even) .badge { left: auto; right: -8px; animation-delay: -1.8s; }
+
+.gift-wrap { margin-top: 34px; }

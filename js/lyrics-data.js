@@ -1,4 +1,9 @@
-export const LINE_SECONDS = 8;
+/* Daftar kalimat ini dipakai dua tempat: teks yang tampil di bawah layar saat lagu bunyi
+   (berganti otomatis tiap LINE_SECONDS detik), dan kartu-kartu di page 5 (toples kata-kata).
+   Mau tambah, hapus, atau ganti kalimat? Edit saja daftar di bawah (satu kalimat per baris,
+   diapit tanda kutip dan diakhiri koma). Kalau dikosongkan, tidak ada yang tampil. */
+
+export const LINE_SECONDS = 8; // lama tiap kalimat tampil (detik)
 
 export const LYRICS = [
   "Somehow, you always seem to make a moment more memorable just by being in it.",
@@ -15,5 +20,6 @@ export const LYRICS = [
   "There’s something quietly beautiful about the way you exist.",
 ];
 
+/* Opsi lanjutan (boleh diabaikan): teks berwaktu format .lrc, dan geser waktu. */
 export const LRC = ``;
 export const OFFSET = 0;

@@ -1,3 +1,4 @@
+/* Pengatur page (satu halaman). Alamat: #/1 sampai #/6 — tombol Back browser tetap berfungsi. */
 import "./music.js";
 import "./musicbtn.js";
 import "./lyrics.js";
@@ -7,25 +8,31 @@ import css2 from "../css/page2.css?inline";
 import css3 from "../css/page3.css?inline";
 import css4 from "../css/page4.css?inline";
 import css5 from "../css/page5.css?inline";
+import css6 from "../css/page6.css?inline";
 import html1 from "../pages/page1.html?raw";
 import html2 from "../pages/page2.html?raw";
 import html3 from "../pages/page3.html?raw";
 import html4 from "../pages/page4.html?raw";
 import html5 from "../pages/page5.html?raw";
+import html6 from "../pages/page6.html?raw";
 import { mount as mount1 } from "./page1.js";
 import { mount as mount2 } from "./page2.js";
 import { mount as mount3 } from "./page3.js";
 import { mount as mount4 } from "./page4.js";
 import { mount as mount5 } from "./page5.js";
+import { mount as mount6 } from "./page6.js";
 
+// Tambah page baru di sini
 const PAGES = {
   1: { title: "Hari ini hari apa ya? 💙", html: html1, css: [css1], mount: mount1 },
   2: { title: "Happy Birthday Sahara 💙", html: html2, css: [css2], mount: mount2 },
   3: { title: "Our moments together 💙", html: html3, css: [css2, css3], mount: mount3 },
   4: { title: "Make a wish 💙", html: html4, css: [css2, css4], mount: mount4 },
-  5: { title: "HAPPY BIRTHDAY SAHARA 💙", html: html5, css: [css2, css5], mount: mount5 },
+  5: { title: "Toples kata-kata 💙", html: html5, css: [css2, css5], mount: mount5 },
+  6: { title: "HAPPY BIRTHDAY SAHARA 💙", html: html6, css: [css2, css6], mount: mount6 },
 };
 
+// foto yang dimuat dulu di layar loading
 const PRELOAD = [1, 2, 3, 4, 5, 6].map(n => `/assets/foto${n}.webp`);
 
 const app = document.getElementById("app");
@@ -35,6 +42,7 @@ const num = () => Number(location.hash.slice(2)) || 1;
 
 let current = 0, cleanup = null, styles = [], busy = false;
 
+/* ---------- transisi: awan dan hati menyapu layar ---------- */
 function makeWipe() {
   const el = document.createElement("div");
   el.className = "wipe";
@@ -71,6 +79,7 @@ async function uncover() {
   wipe.style.visibility = "hidden";
 }
 
+/* ---------- ganti isi page ---------- */
 function swap(n) {
   if (cleanup) cleanup();
   styles.forEach(s => s.remove());
@@ -87,6 +96,7 @@ function swap(n) {
   scrollTo(0, 0);
   cleanup = p.mount(app);
 
+  // tombol kembali ke page sebelumnya (mulai page 2)
   if (n > 1) {
     const b = document.createElement("button");
     b.className = "back-btn";
@@ -102,7 +112,7 @@ function swap(n) {
 
 async function show(n) {
   if (busy || n === current) return;
-  if (!PAGES[n]) {
+  if (!PAGES[n]) { // page belum ada
     n = current || 1;
     history.replaceState(null, "", "#/" + n);
     if (n === current) return;
@@ -110,16 +120,17 @@ async function show(n) {
   busy = true;
   const first = !current;
   if (!first) {
-    if (n === 1) BdayMusic.stop();
+    if (n === 1) BdayMusic.stop(); // kembali ke menu Start: lagu berhenti
     await cover();
   }
   swap(n);
   if (first) requestAnimationFrame(() => (app.style.opacity = 1));
   else await uncover();
   busy = false;
-  if (num() !== current) show(num());
+  if (num() !== current) show(num()); // ada perpindahan yang tertahan selama transisi
 }
 
+/* ---------- layar loading ---------- */
 async function preload() {
   const bar = document.getElementById("ldBar"), pct = document.getElementById("ldPct");
   const jobs = [
@@ -133,6 +144,7 @@ async function preload() {
     if (bar) bar.style.setProperty("--p", p + "%");
     if (pct) pct.textContent = p + "%";
   };
+  // paling lama 9 detik (kalau sinyal lambat), setelah itu website tetap dibuka
   await Promise.race([
     Promise.all([wait(1400), ...jobs.map(j => Promise.resolve(j).then(bump, bump))]),
     wait(9000),
@@ -149,6 +161,7 @@ preload().then(() => {
   show(num());
 });
 
+// kalau halaman dibuka langsung di page 2 atau lebih (mis. di-refresh), lagu mulai di sentuhan pertama
 let armed = num() > 1;
 ["pointerdown", "keydown", "touchend"].forEach(ev =>
   addEventListener(ev, e => {

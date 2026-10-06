@@ -1,26 +1,58 @@
+/* Page 5 — Toples kata-kata. Hiasan & efek dasar ikut dari js/page2.js.
+   Isi kartunya diambil dari daftar di js/lyrics-data.js, jadi kalau daftarnya diubah, page ini ikut berubah. */
 import { mount as base, burst } from "./page2.js";
+import { LYRICS } from "./lyrics-data.js";
 
-const HEART4 = '<svg viewBox="0 0 300 150"><path pathLength="100" d="M75 130c-45-34-68-60-68-83c0-20 17-32 34-32c15 0 28 9 34 21c6-12 19-21 34-21c17 0 34 12 34 32c0 23-23 49-68 83q75 26 150 0c-45-34-68-60-68-83c0-20 17-32 34-32c15 0 28 9 34 21c6-12 19-21 34-21c17 0 34 12 34 32c0 23-23 49-68 83"/></svg>';
+// hati satu goresan dengan ekor melingkar kecil di ujung bawah
+const HEART5 = '<svg viewBox="0 0 200 190"><path pathLength="100" d="M100 160C40 118 10 86 10 56C10 28 32 12 55 12C75 12 92 24 100 40C108 24 125 12 145 12C168 12 190 28 190 56C190 86 160 118 100 160C112 172 132 176 138 164C144 150 122 146 118 158"/></svg>';
+const ICONS = ["♥", "✦", "★", "♪", "✿"];
 
 export function mount(root) {
-  const off = base(root, HEART4);
+  const off = base(root, HEART5);
   const ac = new AbortController();
-  const fin = root.querySelector("#finale");
-  const big = fin.querySelector(".big");
+  const { signal } = ac;
+  const timers = [];
+  const later = (fn, ms) => timers.push(setTimeout(fn, ms));
+  const jar = root.querySelector("#jar");
+  const box = root.querySelector("#notes");
 
-  big.innerHTML = big.textContent.trim().split(" ").map((w, k) =>
-    `<span class="w">${[...w].map((c, i) => `<span style="--i:${k * 4 + i}">${c}</span>`).join("")}</span>`
-  ).join(" ");
+  // satu kartu per kalimat (teks dimasukkan sebagai teks biasa, bukan HTML)
+  LYRICS.map(l => (typeof l === "string" ? l : l && l.text)).filter(Boolean).forEach((q, i) => {
+    const n = document.createElement("article");
+    n.className = "note t" + (i % 3);
+    n.style.setProperty("--i", i);
+    const badge = document.createElement("i");
+    badge.className = "badge";
+    badge.textContent = ICONS[i % ICONS.length];
+    const p = document.createElement("p");
+    p.textContent = q;
+    n.append(badge, p);
+    box.appendChild(n);
+  });
+  const notes = [...box.children];
 
-  fin.addEventListener("click", e => burst(e.clientX, e.clientY), { signal: ac.signal });
+  // tutup toples terbuka, lalu semua kartu keluar sekaligus
+  function pour() {
+    timers.splice(0).forEach(clearTimeout);
+    box.classList.add("reset"); // kartu langsung kembali ke toples tanpa animasi mundur
+    notes.forEach(n => n.classList.remove("shown"));
+    void box.offsetWidth;
+    box.classList.remove("reset");
+    jar.classList.add("open");
+    later(() => notes.forEach(n => n.classList.add("shown")), 350);
+    later(() => jar.classList.remove("open"), 1800);
+  }
 
-  const io = new IntersectionObserver(([e]) => {
-    if (!e.isIntersecting) return;
-    io.disconnect();
-    burst(innerWidth * 0.25, innerHeight * 0.6);
-    setTimeout(() => burst(innerWidth * 0.75, innerHeight * 0.6), 250);
-  }, { threshold: 0.7 });
-  io.observe(fin);
+  later(pour, 500);
 
-  return () => { off(); ac.abort(); io.disconnect(); };
+  jar.addEventListener("click", () => {
+    const r = jar.getBoundingClientRect();
+    burst(r.left + r.width / 2, r.top + r.height * 0.3);
+    jar.classList.remove("shake");
+    void jar.offsetWidth;
+    jar.classList.add("shake");
+    pour();
+  }, { signal });
+
+  return () => { off(); ac.abort(); timers.forEach(clearTimeout); };
 }

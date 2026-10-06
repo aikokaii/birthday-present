@@ -43,6 +43,7 @@ body[data-page="5"] .lyric { display: none !important; }
 
 /* kartu kata-kata: semuanya muncul sekaligus dari toples */
 .notes { position: relative; z-index: 1; display: grid; grid-template-columns: 1fr; gap: 24px; margin: 34px 0 10px; text-align: left; }
+.notes:not(.filled) { display: none; } /* belum dibuka: kartu belum ada & tidak makan tempat */
 @media (min-width: 720px) { .notes { grid-template-columns: 1fr 1fr; gap: 28px 26px; align-items: start; } }
 
 .note {
@@ -50,8 +51,8 @@ body[data-page="5"] .lyric { display: none !important; }
   box-shadow: 0 10px 22px rgba(63, 149, 221, .22); outline: 2px dashed var(--sky-200); outline-offset: -9px;
   rotate: var(--rot, 0deg); opacity: 0; transform: translateY(-190px) scale(.25);
   transition:
-    opacity .45s ease calc(var(--i) * 45ms),
-    transform .7s cubic-bezier(.2, 1.25, .4, 1) calc(var(--i) * 45ms),
+    opacity .45s ease,
+    transform .7s cubic-bezier(.2, 1.25, .4, 1),
     rotate .3s ease 0s;
 }
 .note.shown { opacity: 1; transform: none; }
@@ -77,3 +78,4 @@ body[data-page="5"] .lyric { display: none !important; }
 .note:nth-child(even) .badge { left: auto; right: -8px; animation-delay: -1.8s; }
 
 .gift-wrap { margin-top: 34px; }
+.gift-wrap.reveal.locked { opacity: 0; translate: 0 20px; pointer-events: none; } /* kado baru muncul setelah toples dibuka */

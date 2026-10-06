@@ -1,3 +1,7 @@
+@font-face { font-family: "Fredoka"; font-style: normal; font-weight: 400; font-display: swap; src: url("/fonts/Fredoka-Regular.ttf") format("truetype"); }
+@font-face { font-family: "Fredoka"; font-style: normal; font-weight: 500; font-display: swap; src: url("/fonts/Fredoka-Medium.ttf") format("truetype"); }
+@font-face { font-family: "Fredoka"; font-style: normal; font-weight: 600; font-display: swap; src: url("/fonts/Fredoka-SemiBold.ttf") format("truetype"); }
+
 :root {
   --sky-50: #f4faff;
   --sky-100: #dff1ff;

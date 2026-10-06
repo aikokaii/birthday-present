@@ -4,7 +4,7 @@ export function parseLRC(src = "") {
   const out = [];
   for (const raw of src.split(/\r?\n/)) {
     const stamps = [...raw.matchAll(/\[(\d+):(\d+(?:[.:]\d+)?)\]/g)];
-    if (!stamps.length) continue; // lewati baris info seperti [ar:...]
+    if (!stamps.length) continue;
     const text = raw.replace(/\[[^\]]*\]/g, "").trim();
     for (const m of stamps) out.push({ t: Number(m[1]) * 60 + parseFloat(m[2].replace(":", ".")), text });
   }

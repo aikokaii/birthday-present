@@ -1,4 +1,6 @@
+
 const $ = id => document.getElementById(id);
+const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
 const rand = (a, b) => a + Math.random() * (b - a);
 const pick = a => a[Math.floor(Math.random() * a.length)];
 const BLUES = ["#bfe3ff", "#8ccbf7", "#5fb0ee", "#3f95dd"];
@@ -22,6 +24,8 @@ export function burst(x, y) {
 
 export function mount(root, heart = HEART) {
   const ac = new AbortController();
+  const timers = [];
+  const later = (fn, ms) => timers.push(setTimeout(fn, ms));
   let nav;
   root.querySelectorAll(".draw").forEach(el => (el.innerHTML = heart));
 
@@ -35,8 +39,35 @@ export function mount(root, heart = HEART) {
   for (let i = 0; i < 14; i++)
     add(deco, "spark", `left:${rand(2, 96)}%;top:${rand(4, 94)}%;font-size:${rand(10, 22)}px;--delay:-${rand(0, 4)}s;color:${pick(BLUES)}`, "✦");
 
+  // bubble muncul satu-satu, didahului "sedang mengetik..."
+  const queue = [];
+  let typing = false;
+  const type = () => {
+    if (typing || !queue.length) return;
+    typing = true;
+    const b = queue.shift();
+    const dots = document.createElement("div");
+    dots.className = "typing";
+    dots.setAttribute("aria-hidden", "true");
+    dots.innerHTML = "<i></i><i></i><i></i>";
+    dots.style.top = b.offsetTop + "px";
+    if ([...b.parentNode.children].filter(el => el.tagName === b.tagName).indexOf(b) % 2) dots.classList.add("r");
+    b.parentNode.appendChild(dots);
+    later(() => {
+      dots.remove();
+      b.classList.add("in");
+      typing = false;
+      later(type, 220);
+    }, Math.min(1300, 500 + b.textContent.length * 6));
+  };
+
   const io = new IntersectionObserver(es => es.forEach(e => {
-    if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
+    if (!e.isIntersecting) return;
+    io.unobserve(e.target);
+    if (reduce || !e.target.classList.contains("bubble")) return e.target.classList.add("in");
+    queue.push(e.target);
+    queue.sort((a, b) => (a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : 1));
+    type();
   }), { threshold: 0.25 });
   root.querySelectorAll(".reveal").forEach(el => io.observe(el));
 
@@ -50,13 +81,13 @@ export function mount(root, heart = HEART) {
   }, { signal: ac.signal });
 
   addEventListener("pointerdown", e => {
-    if (e.target.closest("#gift, .cake, .music-ctl, .back-btn, .lightbox, .car-btn")) return;
+    if (e.target.closest("#gift, .cake, .music-ctl, .back-btn, .lightbox, .car-btn, .scratch")) return;
     const h = add(document.body, "pop", `left:${e.clientX - 10}px;top:${e.clientY - 12}px;--x:${rand(-24, 24)}px`, "♥");
     setTimeout(() => h.remove(), 1400);
   }, { signal: ac.signal });
 
   return () => {
-    ac.abort(); io.disconnect(); clearTimeout(nav);
+    ac.abort(); io.disconnect(); clearTimeout(nav); timers.forEach(clearTimeout);
     document.querySelectorAll(".confetti, .pop").forEach(el => el.remove());
   };
 }

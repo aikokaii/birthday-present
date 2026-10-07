@@ -1,5 +1,6 @@
 import { mount as base, burst } from "./page2.js";
 import { QUOTES } from "./quotes-data.js";
+import { play, buzz } from "./sfx.js";
 
 const HEART5 = '<svg viewBox="0 0 200 190"><path pathLength="100" d="M100 160C40 118 10 86 10 56C10 28 32 12 55 12C75 12 92 24 100 40C108 24 125 12 145 12C168 12 190 28 190 56C190 86 160 118 100 160C112 172 132 176 138 164C144 150 122 146 118 158"/></svg>';
 const ICONS = ["♥", "✦", "★", "♪", "✿"];
@@ -87,6 +88,8 @@ export function mount(root) {
     const x = b.left + b.width / 2, y = b.top + b.height / 2;
     balloon.classList.add("burst");
     burst(x, y);
+    play("pop");
+    buzz([30, 40, 70]);
     show();
     if (!reduce) {
       shreds(x, y);
@@ -111,6 +114,8 @@ export function mount(root) {
     void balloon.offsetWidth;
     balloon.classList.add("hit");
     if (hits >= HITS) return pop();
+    play("squeak");
+    buzz(12);
     const left = HITS - hits;
     hint.textContent = left === 1 ? "1 kali lagi... siap-siap ya!" : `${left} kali lagi!!`;
     balloon.setAttribute("aria-label", `Balon kata-kata, tap ${left} kali lagi untuk memecahkan`);

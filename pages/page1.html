@@ -7,7 +7,12 @@
   <main class="stage">
     <section class="card">
       <h1 class="title">Hari ini, <span>Hari apa ya??</span> coba tebak deh!!</h1>
-      <button class="btn-start" id="startBtn" type="button">Start</button>
-      <p class="hint">lagu favorite kamu bakal diputar kalo kamu pencet start :3</p>
+      <div class="answers">
+        <button class="btn-start nope" type="button">Hari biasa aja?</button>
+        <button class="btn-start" id="startBtn" type="button">Hari ulang tahun kamu!! 🎂</button>
+        <button class="btn-start nope" type="button">Hari Senin?</button>
+      </div>
+      <p class="tease" id="tease" aria-live="polite"></p>
+      <p class="hint">lagu favorite kamu bakal diputar kalo jawabannya bener :3</p>
     </section>
   </main>

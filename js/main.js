@@ -59,7 +59,7 @@ const EASE = "cubic-bezier(.65,0,.35,1)";
 async function cover() {
   if (reduce) { app.style.opacity = 0; await wait(400); return; }
   wipe.getAnimations().forEach(a => a.cancel());
-  wipe.style.visibility = "visible";
+  wipe.classList.add("on");
   await wipe.animate(
     [{ transform: "translateY(calc(100% + 70px))" }, { transform: "translateY(0)" }],
     { duration: 650, easing: EASE, fill: "forwards" }
@@ -72,7 +72,7 @@ async function uncover() {
     [{ transform: "translateY(0)" }, { transform: "translateY(calc(-100% - 70px))" }],
     { duration: 650, delay: 120, easing: EASE, fill: "forwards" }
   ).finished;
-  wipe.style.visibility = "hidden";
+  wipe.classList.remove("on");
 }
 
 function swap(n) {
@@ -130,6 +130,7 @@ async function preload() {
     ...PRELOAD.map(src => new Promise(r => { const im = new Image(); im.onload = im.onerror = r; im.src = src; })),
     BdayMusic.ready,
     Promise.race([document.fonts ? document.fonts.ready : 0, wait(2500)]),
+    document.fonts ? document.fonts.load("600 1em Caveat") : 0,
   ];
   let n = 0;
   const bump = () => {

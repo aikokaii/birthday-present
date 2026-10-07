@@ -58,7 +58,7 @@ button:focus-visible { outline: 4px solid var(--sky-700); outline-offset: 4px; }
 @keyframes back-nudge { 50% { translate: -3px 0; } }
 @keyframes back-wiggle { 0%, 100% { rotate: -10deg; } 50% { rotate: 10deg; scale: 1.12; } }
 
-.lyric {
+.quote-pill {
   position: fixed; left: 50%; bottom: calc(env(safe-area-inset-bottom, 0px) + 18px); z-index: 9;
   translate: -50% 10px; width: max-content; max-width: min(88vw, 460px); padding: .55em 1.2em;
   display: flex; align-items: center; gap: .55em;
@@ -67,8 +67,8 @@ button:focus-visible { outline: 4px solid var(--sky-700); outline-offset: 4px; }
   box-shadow: 0 8px 20px rgba(63, 149, 221, .28);
   opacity: 0; pointer-events: none; transition: opacity .4s ease, translate .4s ease;
 }
-.lyric.show { opacity: 1; translate: -50% 0; }
-.lyric::before { content: "♥"; color: var(--sky-400); font-size: 1.2em; animation: back-wiggle 3.6s ease-in-out infinite; }
+.quote-pill.show { opacity: 1; translate: -50% 0; }
+.quote-pill::before { content: "♥"; color: var(--sky-400); font-size: 1.2em; animation: back-wiggle 3.6s ease-in-out infinite; }
 
 #loader {
   position: fixed; inset: 0; z-index: 100; display: grid; place-content: center; justify-items: center; gap: 20px; padding: 24px; text-align: center;

@@ -1,5 +1,5 @@
 import { mount as base, burst } from "./page2.js";
-import { LYRICS } from "./lyrics-data.js";
+import { QUOTES } from "./quotes-data.js";
 
 const HEART5 = '<svg viewBox="0 0 200 190"><path pathLength="100" d="M100 160C40 118 10 86 10 56C10 28 32 12 55 12C75 12 92 24 100 40C108 24 125 12 145 12C168 12 190 28 190 56C190 86 160 118 100 160C112 172 132 176 138 164C144 150 122 146 118 158"/></svg>';
 const ICONS = ["♥", "✦", "★", "♪", "✿"];
@@ -28,7 +28,7 @@ export function mount(root) {
   const giftWrap = root.querySelector(".gift-wrap");
   let hits = 0;
 
-  LYRICS.map(l => (typeof l === "string" ? l : l && l.text)).filter(Boolean).forEach((q, i) => {
+  QUOTES.forEach((q, i) => {
     const n = document.createElement("article");
     n.className = "note t" + (i % 3);
     const side = i % 2 ? 1 : -1;

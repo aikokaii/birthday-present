@@ -1,6 +1,6 @@
 import "./music.js";
 import "./musicbtn.js";
-import "./lyrics.js";
+import "./quotes.js";
 import { initPhotos } from "./photos.js";
 import css1 from "../css/page1.css?inline";
 import css2 from "../css/page2.css?inline";

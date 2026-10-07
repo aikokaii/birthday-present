@@ -1,6 +1,6 @@
-export const LINE_SECONDS = 8;
+export const QUOTE_SECONDS = 8;
 
-export const LYRICS = [
+export const QUOTES = [
   "Somehow, you always seem to make a moment more memorable just by being in it.",
   "Some people are beautiful to look at. You’re beautiful to remember.",
   "You’re the sort of person who makes ‘beautiful’ feel like an incomplete word.",
@@ -14,6 +14,3 @@ export const LYRICS = [
   "You’re proof that beautiful things don’t always need to ask for attention.",
   "There’s something quietly beautiful about the way you exist.",
 ];
-
-export const LRC = ``;
-export const OFFSET = 0;

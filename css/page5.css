@@ -14,7 +14,7 @@
   100%     { stroke-dashoffset: 100; opacity: 0; transform: scale(1); }
 }
 
-body[data-page="5"] .lyric { display: none !important; }
+body[data-page="5"] .quote-pill { display: none !important; }
 
 .wrap { width: min(92vw, 960px); }
 .headline { margin-bottom: 8px; }
